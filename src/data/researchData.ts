@@ -563,15 +563,39 @@ export const productionModeComparison = [
   }
 ];
 
-// 9. 自采近千部短剧题材供给分布 (一手样本 1000部)
-export const genreSampleDistribution: ChartDatasetItem[] = [
-  { name: '都市情感 / 甜宠虐恋', value: 287, percentage: '28.7%', color: '#EC4899' },
-  { name: '修仙神话 / 玄幻长生', value: 226, percentage: '22.6%', color: '#8B5CF6' },
-  { name: '都市商战 / 总裁婚约', value: 184, percentage: '18.4%', color: '#3B82F6' },
-  { name: '西方奇幻 / 狼人吸血鬼', value: 145, percentage: '14.5%', color: '#F59E0B' },
-  { name: '历史文化 / 传统正剧', value: 52, percentage: '5.2%', color: '#10B981' },
-  { name: '其他 / 悬疑惊悚科幻', value: 106, percentage: '10.6%', color: '#6B7280' }
+// ==========================================
+// 团队同伴爬取一手真实样本库（100%基于实测图表，杜绝拟合与循环论证）
+// ==========================================
+
+// 1. 题材分布一手样本（总样本 973部，包含中华文化标注）
+export const realGenreDistribution = [
+  { name: '情感与家庭', total: 287, chineseCulture: 102, percentage: '29.5%' },
+  { name: '穿越、修仙与神话', total: 226, chineseCulture: 146, percentage: '23.2%' },
+  { name: '都市与身份逆袭', total: 149, chineseCulture: 83, percentage: '15.3%' },
+  { name: '其他与特殊题材', total: 140, chineseCulture: 3, percentage: '14.4%' },
+  { name: '动作、科幻与惊悚', total: 119, chineseCulture: 10, percentage: '12.2%' },
+  { name: '历史与传统文化', total: 52, chineseCulture: 50, percentage: '5.3%' },
 ];
+export const totalGenreSamples = 973; // 287+226+149+140+119+52 = 973部
+
+// 2. 播放量分档分布一手样本（总样本 661条）
+export const realViewsTierDistribution = [
+  { tier: '不足1万', count: 54, percentage: '8.17%' },
+  { tier: '1万—10万', count: 75, percentage: '11.35%' },
+  { tier: '10万—100万', count: 409, percentage: '61.88%' }, // 澄清：409是这一区间的具体条数！
+  { tier: '100万—1000万', count: 116, percentage: '17.55%' },
+  { tier: '1000万及以上', count: 4, percentage: '0.61%' },
+  { tier: '播放量缺失', count: 3, percentage: '0.45%' },
+];
+export const totalViewsSamples = 661; // 54+75+409+116+4+3 = 661条
+
+// 3. 跨平台样本与百万播放率（总样本 661条）
+export const realPlatformMilestoneData = [
+  { platform: 'YouTube', total: 548, reachMillion: 113, millionRate: '20.62%' },
+  { platform: 'TikTok', total: 111, reachMillion: 7, millionRate: '6.31%' },
+  { platform: '其他海外平台', total: 2, reachMillion: 0, millionRate: '0.00%' },
+];
+
 
 // 10. 短剧解说受众年龄构成 (DataEye Page 21)
 export const commentaryAudienceAge: ChartDatasetItem[] = [

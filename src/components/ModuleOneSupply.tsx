@@ -6,7 +6,8 @@ import {
   moduleOneSources,
   productionModeComparison,
   localVsDubbedTrend,
-  genreSampleDistribution
+  realGenreDistribution,
+  totalGenreSamples
 } from '../data/researchData';
 import { Layers, DollarSign, Clock, Users, Sparkles, BarChart3, PieChart as PieIcon, Cpu, RefreshCw } from 'lucide-react';
 
@@ -398,40 +399,65 @@ export const ModuleOneSupply: React.FC = () => {
           </div>
         )}
 
-        {/* Visualization 4: Genres Sample Distribution */}
+        {/* Visualization 4: Genres Sample Distribution (Teammate's Real Crawled Data) */}
         {activeVisTab === 'genres' && (
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-5">
-            <div>
-              <h4 className="text-base font-bold text-slate-100 font-sans">
-                团队自采近千部短剧题材供给分布（一手样本数据分析）
-              </h4>
-              <p className="text-xs text-slate-400 mt-1">
-                自采样本共1000部短剧：都市情感287部、修仙神话226部断层占据超50%供给；而传统厚重的历史文化题材仅52部。
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <h4 className="text-base font-bold text-slate-100 font-sans">
+                  同伴爬取一手实证原图：视频题材分布与中华文化占比（总样本 973 部）
+                </h4>
+                <p className="text-xs text-slate-400 mt-1">
+                  100% 真实统计图核验（杜绝拟合与编造）：包含「视频总数量」与「包含中华文化视频数量」双层对照。
+                </p>
+              </div>
+              <span className="text-xs font-mono px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 shrink-0">
+                真实抓取 N = 973
+              </span>
             </div>
 
-            <div className="space-y-3 font-sans">
-              {genreSampleDistribution.map((item, idx) => (
-                <div key={idx} className="space-y-1">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-slate-200 font-medium">{item.name}</span>
-                    <span className="text-indigo-400 font-mono font-bold">
-                      {item.value} 部 ({item.percentage})
-                    </span>
-                  </div>
-                  <div className="w-full bg-slate-950 h-3 rounded-full overflow-hidden p-0.5 border border-slate-800">
-                    <div
-                      className="h-full rounded-full transition-all duration-500"
-                      style={{ width: item.percentage, backgroundColor: item.color }}
-                    />
-                  </div>
+            <div className="flex flex-col lg:flex-row gap-6 items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
+              {/* Real Chart Image */}
+              <div className="flex-1 w-full flex flex-col items-center">
+                <div className="relative rounded-lg overflow-hidden border border-slate-800 bg-white/5 p-2 shadow-inner w-full flex justify-center">
+                  <img
+                    src="/assets/aistudio/image_10378299.png"
+                    alt="视频题材分布与中华文化占比真实柱状图"
+                    className="max-h-[340px] w-auto object-contain rounded"
+                  />
                 </div>
-              ))}
-            </div>
+                <div className="text-[11px] text-slate-500 font-mono mt-2 text-center">
+                  ▲ 图4：同伴实际抓取绘制的《视频题材分布》柱状原图（蓝色：视频总数，橙色：包含中华文化数）
+                </div>
+              </div>
 
-            <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 text-xs text-slate-400 leading-relaxed">
-              <span className="text-slate-200 font-bold">供给端映射规律：</span>
-              出海短剧供给并非盲目多元化，而是高度趋向能够快速制造感官刺激的多巴胺类工业品（如逆袭打脸、身份反转、先婚后爱）。AI放大了已有高频叙事模板的供给效率。
+              {/* Exact Data Breakdown List */}
+              <div className="w-full lg:w-96 space-y-2.5 font-sans text-xs">
+                {[
+                  { name: '情感与家庭', total: 287, culture: 102, pct: '29.5%', cultPct: '35.5%' },
+                  { name: '穿越、修仙与神话', total: 226, culture: 146, pct: '23.2%', cultPct: '64.6%' },
+                  { name: '都市与身份逆袭', total: 149, culture: 83, pct: '15.3%', cultPct: '55.7%' },
+                  { name: '其他与特殊题材', total: 140, culture: 3, pct: '14.4%', cultPct: '2.1%' },
+                  { name: '动作、科幻与惊悚', total: 119, culture: 10, pct: '12.2%', cultPct: '8.4%' },
+                  { name: '历史与传统文化', total: 52, culture: 50, pct: '5.3%', cultPct: '96.2%' },
+                ].map((item, idx) => (
+                  <div key={idx} className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold text-slate-200">{item.name}</span>
+                      <span className="font-mono text-indigo-400 font-bold">{item.total} 部 ({item.pct})</span>
+                    </div>
+                    <div className="flex justify-between text-[11px] text-slate-400 font-mono">
+                      <span>包含中华文化元素：</span>
+                      <span className="text-amber-400 font-semibold">{item.culture} 部 ({item.cultPct})</span>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="p-3 bg-indigo-950/40 rounded-lg border border-indigo-900/50 text-[11px] text-slate-300 leading-relaxed">
+                  <strong className="text-indigo-300">实证洞察：</strong>
+                  历史文化仅占 52 部（5.3%），而情感家庭（287部）与修仙神话（226部）合计过半。这证明出海供给是以“高密度情绪爽点”为主体，而非盲目输出传统正剧。
+                </div>
+              </div>
             </div>
           </div>
         )}
