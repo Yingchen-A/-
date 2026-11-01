@@ -1,0 +1,6 @@
+{
+  "name": "国产AI短剧出海实证研究与信息素养分析平台",
+  "description": "基于学术模型推导、DataEye 2026上半年海外短剧AI剧行业原报告与上市公司一手财报交叉核验的三模块交互式研究看板与可视化系统。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
